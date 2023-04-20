@@ -71,7 +71,7 @@ class Filter
 class Main {
 
     static MapString[] arr= new MapString[7185];
-
+	static String filename =null;
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
         int i=1;//переменная для цикла
         int j=0;//переменная для цикла
@@ -80,8 +80,22 @@ class Main {
         {
             arr[k]=new MapString();
         }
-
-        try(Scanner scanner = new Scanner(new File("airports.csv"), "UTF-8")){
+		Scanner in = new Scanner(System.in);
+		while(true)
+		{
+		System.out.print("Введите полный путь до файла: ");
+		 filename = in.nextLine();
+		
+		if((new File(filename)).exists())
+		{
+			//if(!((new File(filename)).isDirectory()))
+		break;
+		
+		}
+		}
+		
+			
+        try(Scanner scanner = new Scanner(new File(filename), "UTF-8")){
             while(scanner.hasNextLine())
             {
 
@@ -105,7 +119,7 @@ class Main {
         }
         String query="";
         //String filter="";
-        Scanner in = new Scanner(System.in);
+        
 
         Filter filter=null;
         while(true)
@@ -130,7 +144,7 @@ class Main {
         TreeSet <Integer> numbers = new TreeSet<Integer>() ;//отобраные под определённый запрос по названиям
         String [] array = new String[7185];
 
-        try(Scanner scanner = new Scanner(new File("C:\\Users\\user\\Desktop\\airports.csv"), "UTF-8")){
+        try(Scanner scanner = new Scanner(new File(filename), "UTF-8")){
             {
 
                 int count=0;
@@ -178,7 +192,7 @@ class Main {
                     if(filter.arr!=null)
                     helper = new int[(filter.arr.length+1)/2];//массив, хранящий значения сравнений с каждым фильтром
 
-                    if(filter.arr!=null)
+                    if(filter.arr!=null&&filter.arr.length>2)
                     {
                         //форматирование строки под сравнение с фильтром
                         for (int k = 0; k < 14; k++) {
@@ -194,7 +208,7 @@ class Main {
                             Str = "";
 
                         }
-                        //заполнение массива helper
+                        //заполнение массива helper		
                         for (int j = 0; j < filter.arr.length; j = j + 4) {
                             switch (filter.arr[j + 1]) {
                                 case ">":
